@@ -30,8 +30,6 @@ const useLogin = () => {
         toast.success("User Login Successful");
         login()
         navigate("/");
-        // const from = location.state?.from?.pathname || "/";
-        // navigate(from, { replace: true });
 
       } else {
         const errorData = await response.json(); // Get error details

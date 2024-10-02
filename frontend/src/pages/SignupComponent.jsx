@@ -5,13 +5,16 @@ import CheckBox from '../components/CheckBox';
 
 const SignupComponent = () => {
   // setIsAuthenticated
-  const nameField = useField("name", "name");
-  const emailField = useField("email", "email");
-  const passwordField = useField("password", "password");
+  const name = useField("text", "name");
+  const username = useField('text', 'username');
+  const password = useField("password", "password");
   const phone_number = useField("phone_number", "phone_number");
   const gender = useField("gender", "gender");
-  const date_of_birth = useField("date_of_birth", "date_of_birth");
-  // const membership_status = useField("membership_status", "membership_status");
+  const date_of_birth = useField("date", "date_of_birth");
+  // membership made with useState
+  const adress = useField('text', 'adress')
+  const profile_piture = useField('text', 'picture')
+  
 
 
   const [membershipStatus, setMembershipStatus] = useState('Not a Member')
@@ -20,9 +23,9 @@ const SignupComponent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     handleSignup(
-      nameField.value,
+      name.value,
       emailField.value,
-      passwordField.value,
+      password.value,
       phone_number.value,
       gender.value,
       date_of_birth.value,
@@ -46,19 +49,23 @@ const SignupComponent = () => {
               </label>
               <input
                 className="border rounded w-full py-2 px-3 mb-2"
-                {...nameField}
+                {...name}
               />
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-bold mb-2">
-                Email:
+              <label
+                htmlFor="type"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Username:
               </label>
               <input
                 className="border rounded w-full py-2 px-3 mb-2"
-                {...emailField}
+                {...username}
               />
             </div>
+
             <div className="mb-4">
               <label
                 htmlFor="description"
@@ -69,7 +76,7 @@ const SignupComponent = () => {
               <input
                 type="password"
                 className="border rounded w-full py-2 px-3"
-                {...passwordField}
+                {...password}
               />
             </div>
 
@@ -88,13 +95,16 @@ const SignupComponent = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-bold mb-2">
-                Gender:
-              </label>
-              <input
-                className="border rounded w-full py-2 px-3 mb-2"
-                {...gender}
-              />
+              <label className="block text-gray-700 font-bold mb-2">Job type:</label>
+              <select {...gender} className="border rounded w-full py-2 px-3 mb-2" {...type}>
+                <option value="" disabled selected>
+                  Select job type
+                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
             </div>
 
             <div className="mb-4">
@@ -112,31 +122,18 @@ const SignupComponent = () => {
               />
             </div>
 
-            {/* <div className="mb-4">
+            <div className="mb-4">
               <label
-                htmlFor="company_description"
+                htmlFor="type"
                 className="block text-gray-700 font-bold mb-2"
               >
-                Membership Status:
+                Adress:
               </label>
-
-              <select
-                className="border rounded w-full py-2 px-3"
-                {...membership_status}
-              >
-                <option value="true">True</option>
-                <option value="false">False</option>
-              </select>
+              <input
+                className="border rounded w-full py-2 px-3 mb-2"
+                {...adress}
+              />
             </div>
-
-            <div>
-              <button
-                className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
-                type="submit"
-              >
-                Signup
-              </button>
-            </div> */}
 
             <CheckBox 
                     status={membershipStatus} 

@@ -8,10 +8,11 @@ const jobSchema = new mongoose.Schema({
   salary: { type: String, required: true },
   company: {
     name: { type: String, required: true },
-    description: { type: String, required: true },
     contactEmail: { type: String, required: true },
     contactPhone: { type: String, required: true }
-  }
+  },
+  postedDate: { type: Date, default: Date.now },
+  status: { type: String, required: true }
 });
 
 // Ensure virtual fields are serialized

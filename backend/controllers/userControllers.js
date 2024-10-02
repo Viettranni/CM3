@@ -9,34 +9,47 @@ const generateToken = (_id) => {
   });
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // @desc    Register new user
 // @route   POST /api/users/signup
 // @access  Public
 const signupUser = async (req, res) => {
   const {
     name,
-    email,
+    username,
     password,
     phone_number,
     gender,
     date_of_birth,
     membership_status,
+    address,
+    profile_picture
   } = req.body;
   try {
     if (
       !name ||
-      !email ||
+      !username ||
       !password ||
       !phone_number ||
       !gender ||
       !date_of_birth ||
-      !membership_status
+      !membership_status ||
+      !address ||
+      !profile_picture
     ) {
       res.status(400);
       throw new Error("Please add all fields");
     }
     // Check if user exists
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ username });
 
     if (userExists) {
       res.status(400);
@@ -49,19 +62,25 @@ const signupUser = async (req, res) => {
 
     // Create user
     const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-      phone_number,
-      gender,
-      date_of_birth,
-      membership_status,
+    name,
+    username,
+    password: hashedPassword,
+    phone_number,
+    gender,
+    date_of_birth,
+    membership_status,
+    address,
+    profile_picture
     });
+
+    console.log(user)
+
 
     if (user) {
       console.log(user._id);
      const token = generateToken(user._id);
-      res.status(201).json({ email, token });
+     console.log("this should be the token", token);
+      res.status(201).json({ username, token });
     } else {
       res.status(400);
       throw new Error("Invalid user data");
@@ -75,18 +94,21 @@ const signupUser = async (req, res) => {
 // @route   POST /api/users/login
 // @access  Public
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
+  console.log(username, password)
   try {
-    // Check for user email
-    const user = await User.findOne({ email });
+    // Check for user username
+    const user = await User.findOne({ username });
+    console.log("User found", user)
 
     if (user && (await bcrypt.compare(password, user.password))) {
       console.log(user._id);
       const token = generateToken(user._id);
-      res.status(200).json({ email, token });
+      res.status(200).json({ username, token });
     } else {
       res.status(400);
       throw new Error("Invalid credentials");
+      console.log("user id", user._id)
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -108,4 +130,5 @@ module.exports = {
   signupUser,
   loginUser,
   getMe,
+  getAllUsers
 };

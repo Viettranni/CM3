@@ -25,9 +25,9 @@ const getJobById = async (req, res) => {
 };
 
 const addJob = async (req, res) => {
-  const { title, type, location, description, salary, company } = req.body;
+  const { title, type, location, description, salary, company, postedDate, status  } = req.body;
 
-  if (!title || !type || !location || !description || !salary || !company) {
+  if (!title || !type || !description|| !location  || !salary || !company || !postedDate || !status ) {
     return res.status(400).json({ message: "Please fill all fields" });
   }
 
@@ -35,10 +35,12 @@ const addJob = async (req, res) => {
     const newJob = new Job({
       title,
       type,
-      location,
       description,
-      salary,
       company,
+      location,
+      salary,
+      postedDate,      
+      status,
     });
 
     const createdJob = await newJob.save();
@@ -49,7 +51,7 @@ const addJob = async (req, res) => {
 };
 
 const updateJob = async (req, res) => {
-  const { title, type, location, description, salary, company } = req.body;
+  const { title, type, location, description, salary, company, postedDate, status } = req.body;
 
   try {
     const job = await Job.findById(req.params.id);
@@ -61,10 +63,12 @@ const updateJob = async (req, res) => {
     // Update fields
     job.title = title || job.title;
     job.type = type || job.type;
-    job.location = location || job.location;
     job.description = description || job.description;
+    job.location = location || job.location;
     job.salary = salary || job.salary;
     job.company = company || job.company;
+    job.postedDate = postedDate || job.postedDate;
+    job.status = status || job.status;
 
     const updatedJob = await job.save();
     res.status(200).json(updatedJob);
