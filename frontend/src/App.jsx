@@ -45,6 +45,7 @@ const AppContent = () => {
       if (res.ok) {
         const createdJob = await res.json();
         return createdJob;
+        toast.success('Job added successfully!');
       } else {
         const errorData = await res.json();
         console.error("Failed to add job:", errorData);

@@ -1,129 +1,108 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import useField from '../hooks/useField';
 
-const AddJobPage = ({ addJobSubmit }) => {  
-  const [title, setTitle] = useState('');
-  const [type, setType] = useState('Full-Time');
-  const [description, setDescription] = useState('');
-  const [salary, setSalary] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [companyDescription, setCompanyDescription] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactPhone, setContactPhone] = useState('');
-  const [location, setLocation] = useState('');
-  const [postedDate, setPostedDate] = useState('');
-  const [status, setStatus] = useState('closed');
+const AddJobPage = ({ addJobSubmit }) => {
+  const title = useField('text', 'title');
+  const description = useField('textarea', 'description');
+  const salary = useField('select', 'salary');
+  const companyName = useField('text', 'company');
+  const companyDescription = useField('textarea', 'company_description');
+  const contactEmail = useField('email', 'contact_email');
+  const contactPhone = useField('tel', 'contact_phone');
+  const location = useField('text', 'location');
+  const postedDate = useField('date', 'postedDate');
+  const type = useField('select','Full-Time');
+  const status = useField('select', 'closed');
 
   const navigate = useNavigate();
 
-  const handleStatusChange = (e) => {
-    onStatusChange(e.target.checked ? 'open' : 'closed');
-  }
-
-  const submitForm = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const newJob = {
-      title,
-      type,
-      description,
+      title: title.value,
+      type: type.value,
+      description: description.value,
       company: {
-        name: companyName,
-        contactEmail,
-        contactPhone,
+        name: companyName.value,
+        contactEmail: contactEmail.value,
+        contactPhone: contactPhone.value,
       },
-      location,
-      salary,
-      postedDate,
-      status
+      location: location.value,
+      salary: salary.value,
+      postedDate: postedDate.value,
+      status: status.value,
     };
 
     addJobSubmit(newJob);
-
-    return navigate('/jobs');
+    
+    navigate('/jobs');
   };
 
   return (
-    <section className='bg-indigo-50'>
-      <div className='container m-auto max-w-2xl py-24'>
-        <div className='bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0'>
-          <form onSubmit={submitForm}>
-            <h2 className='text-3xl text-center font-semibold mb-6'>Add Job</h2>
+    <section className="bg-indigo-50">
+      <div className="container m-auto max-w-2xl py-24">
+        <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
+          <form onSubmit={handleSubmit}>
+            <h2 className="text-3xl text-center font-semibold mb-6">Add Job</h2>
 
-            <div className='mb-4'>
-              <label
-                htmlFor='type'
-                className='block text-gray-700 font-bold mb-2'
-              >
+            <div className="mb-4">
+              <label htmlFor="type" className="block text-gray-700 font-bold mb-2">
                 Job Type
               </label>
               <select
-                id='type'
-                name='type'
-                className='border rounded w-full py-2 px-3'
+                {...type}
+                className="border rounded w-full py-2 px-3"
                 required
-                value={type}
-                onChange={(e) => setType(e.target.value)}
-              >
-                <option value='Full-Time'>Full-Time</option>
-                <option value='Part-Time'>Part-Time</option>
-                <option value='Remote'>Remote</option>
-                <option value='Internship'>Internship</option>
+                value={type.value}
+              > 
+                <option value="" disabled>
+                  Select your type
+                </option>
+                <option value="Full-Time">Full-Time</option>
+                <option value="Part-Time">Part-Time</option>
+                <option value="Remote">Remote</option>
+                <option value="Internship">Internship</option>
               </select>
             </div>
 
-            <div className='mb-4'>
-              <label className='block text-gray-700 font-bold mb-2'>
+            <div className="mb-4">
+              <label htmlFor={title.id} className="block text-gray-700 font-bold mb-2">
                 Job Listing Name
               </label>
               <input
-                type='text'
-                id='title'
-                name='title'
-                className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='eg. Beautiful Apartment In Miami'
+                {...title}
+                className="border rounded w-full py-2 px-3 mb-2"
+                placeholder="Make it sound cooler than it is!"
                 required
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
-            <div className='mb-4'>
-              <label
-                htmlFor='description'
-                className='block text-gray-700 font-bold mb-2'
-              >
+
+            <div className="mb-4">
+              <label htmlFor={description.id} className="block text-gray-700 font-bold mb-2">
                 Description
               </label>
               <textarea
-                id='description'
-                name='description'
-                className='border rounded w-full py-2 px-3'
-                rows='4'
-                placeholder='Add any job duties, expectations, requirements, etc'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                {...description}
+                className="border rounded w-full py-2 px-3"
+                rows="4"
+                placeholder="What's the role? (No, 'professional snacker' doesn't count)"
               ></textarea>
             </div>
 
-            <div className='mb-4'>
-              <label
-                htmlFor='type'
-                className='block text-gray-700 font-bold mb-2'
-              >
+            <div className="mb-4">
+              <label htmlFor={salary.id} className="block text-gray-700 font-bold mb-2">
                 Salary
               </label>
               <select
-                id='salary'
-                name='salary'
-                className='border rounded w-full py-2 px-3'
+                {...salary}
+                className="border rounded w-full py-2 px-3"
+                value={salary.value}
                 required
-                value={salary}
-                onChange={(e) => setSalary(e.target.value)}
               >
-                <option value="" disabled selected>
-                  Select salary level
-                </option>
+                <option value="" disabled>Select salary level</option>
                 <option value={parseInt('50000')}>Under $50K</option>
                 <option value={parseInt('60000')}>$50K - $60K</option>
                 <option value={parseInt('70000')}>$60K - $70K</option>
@@ -132,134 +111,101 @@ const AddJobPage = ({ addJobSubmit }) => {
               </select>
             </div>
 
-            <div className='mb-4'>
-              <label className='block text-gray-700 font-bold mb-2'>
+            <div className="mb-4">
+              <label htmlFor={location.id} className="block text-gray-700 font-bold mb-2">
                 Location
               </label>
               <input
-                type='text'
-                id='location'
-                name='location'
-                className='border rounded w-full py-2 px-3 mb-2'
-                placeholder='Company Location'
+                {...location}
+                className="border rounded w-full py-2 px-3 mb-2"
+                placeholder="Where are we pretending to be located?"
                 required
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
               />
             </div>
 
-            <h3 className='text-2xl mb-5'>Company Info</h3>
+            <h3 className="text-2xl mb-5">Company Info</h3>
 
-            <div className='mb-4'>
-              <label
-                htmlFor='company'
-                className='block text-gray-700 font-bold mb-2'
-              >
+            <div className="mb-4">
+              <label htmlFor={companyName.id} className="block text-gray-700 font-bold mb-2">
                 Company Name
               </label>
               <input
-                type='text'
-                id='company'
-                name='company'
-                className='border rounded w-full py-2 px-3'
-                placeholder='Company Name'
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-              />
-            </div>
-
-            <div className='mb-4'>
-              <label
-                htmlFor='company_description'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Company Description
-              </label>
-              <textarea
-                id='company_description'
-                name='company_description'
-                className='border rounded w-full py-2 px-3'
-                rows='4'
-                placeholder='What does your company do?'
-                value={companyDescription}
-                onChange={(e) => setCompanyDescription(e.target.value)}
-              ></textarea>
-            </div>
-
-            <div className='mb-4'>
-              <label
-                htmlFor='contact_email'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Contact Email
-              </label>
-              <input
-                type='email'
-                id='contact_email'
-                name='contact_email'
-                className='border rounded w-full py-2 px-3'
-                placeholder='Email address for applicants'
+                {...companyName}
+                className="border rounded w-full py-2 px-3"
+                placeholder="Company Name"
                 required
-                value={contactEmail}
-                onChange={(e) => setContactEmail(e.target.value)}
-              />
-            </div>
-            <div className='mb-4'>
-              <label
-                htmlFor='contact_phone'
-                className='block text-gray-700 font-bold mb-2'
-              >
-                Contact Phone
-              </label>
-              <input
-                type='tel'
-                id='contact_phone'
-                name='contact_phone'
-                className='border rounded w-full py-2 px-3'
-                placeholder='Optional phone for applicants'
-                value={contactPhone}
-                onChange={(e) => setContactPhone(e.target.value)}
               />
             </div>
 
             <div className="mb-4">
-              <label htmlFor="postedDate" className="block text-gray-700 font-bold mb-2">
-                Posted Date
+              <label htmlFor={companyDescription.id} className="block text-gray-700 font-bold mb-2">
+                Company Description
+              </label>
+              <textarea
+                {...companyDescription}
+                className="border rounded w-full py-2 px-3"
+                rows="4"
+                placeholder="Your business in a nutshell (or a really big nut)"
+                required
+              ></textarea>
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor={contactEmail.id} className="block text-gray-700 font-bold mb-2">
+                Contact Email
               </label>
               <input
-                type="date"
-                id="postedDate"
-                name="postedDate"
+                {...contactEmail}
                 className="border rounded w-full py-2 px-3"
+                placeholder="donotsend@wasteoftime.com"
                 required
-                value={postedDate}
-                onChange={(e) => setPostedDate(e.target.value)}
               />
             </div>
 
-            <div>
-              <label htmlFor="membership" className="block text-gray-700 font-bold mb-2">
+            <div className="mb-4">
+              <label htmlFor={contactPhone.id} className="block text-gray-700 font-bold mb-2">
+                Contact Phone
+              </label>
+              <input
+                {...contactPhone}
+                className="border rounded w-full py-2 px-3"
+                required
+                placeholder="Call us! (Unless you’re a telemarketer)"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor={postedDate.id} className="block text-gray-700 font-bold mb-2">
+                Posted Date
+              </label>
+              <input
+                {...postedDate}
+                className="border rounded w-full py-2 px-3"
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="status" className="block text-gray-700 font-bold mb-2">
                 Job Status:
               </label>
-              <div className="flex items-center">
               <select
-                id="status"
-                name="status"
+                {...status}
                 className="border rounded w-full py-2 px-3"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
+                value={status.value}
               >
+                <option value="" disabled>
+                  Is this position still relevant?
+                </option>
                 <option value="open">Open</option>
                 <option value="closed">Closed</option>
               </select>
-              </div>
             </div>
 
-            <br />
             <div>
               <button
-                className='bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'
-                type='submit'
+                className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
+                type="submit"
               >
                 Add Job
               </button>
@@ -270,4 +216,5 @@ const AddJobPage = ({ addJobSubmit }) => {
     </section>
   );
 };
+
 export default AddJobPage;

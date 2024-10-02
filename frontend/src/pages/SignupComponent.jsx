@@ -85,14 +85,14 @@ const SignupComponent = () => {
 
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2">Gender:</label>
-              <select {...gender} className="border rounded w-full py-2 px-3 mb-2">
-                <option value="" disabled selected>
+              <select {...gender} value={gender.value} className="border rounded w-full py-2 px-3 mb-2">
+                <option value="" disabled>
                   Select your gender
                 </option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
-                <option value="Other">Other</option>
-                <option value="Prefer not to say">Prefer not to say</option>
+                <option value="Mechanic">Mechanic</option>
+                <option value="Software Engineer">Software Engineer</option>
               </select>
             </div>
 
