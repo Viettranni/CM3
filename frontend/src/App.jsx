@@ -23,27 +23,35 @@ const AppContent = () => {
     const user = JSON.parse(sessionStorage.getItem("user")); // Get the user from sessionStorage
     const token = user ? user.token : null; // Extract the token
 
+    console.log('job:', newJob)
+    console.log("user", user)
+    console.log(token)
+    
     if (!token) {
       console.error("No token found, user not authenticated");
       return false;
     }
 
-    const res = await fetch("/api/jobs", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`, // Add the Authorization header
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newJob),
-    });
+    try {
+      const res = await fetch("/api/jobs", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newJob),
+      });
 
-    if (res.ok) {
-      const createdJob = await res.json();
-      console.log("Job created successfully:", createdJob);
-      return createdJob;
-    } else {
-      const errorData = await res.json();
-      console.error("Failed to add job:", errorData);
+      if (res.ok) {
+        const createdJob = await res.json();
+        return createdJob;
+      } else {
+        const errorData = await res.json();
+        console.error("Failed to add job:", errorData);
+        return false;
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
       return false;
     }
   };

@@ -9,7 +9,7 @@ const SignupComponent = () => {
   const username = useField('text', 'username');
   const password = useField("password", "password");
   const phone_number = useField("phone_number", "phone_number");
-  const gender = useField("gender", "gender");
+  const gender = useField("select", "gender");
   const date_of_birth = useField("date", "date_of_birth");
   // membership made with useState
   const address = useField('text', 'address')
@@ -84,10 +84,10 @@ const SignupComponent = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 font-bold mb-2">Job type:</label>
+              <label className="block text-gray-700 font-bold mb-2">Gender:</label>
               <select {...gender} className="border rounded w-full py-2 px-3 mb-2">
                 <option value="" disabled selected>
-                  Select job type
+                  Select your gender
                 </option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -111,11 +111,11 @@ const SignupComponent = () => {
                 htmlFor="type"
                 className="block text-gray-700 font-bold mb-2"
               >
-                Adress:
+                Address:
               </label>
               <input
                 className="border rounded w-full py-2 px-3 mb-2"
-                {...adress}
+                {...address}
               />
             </div>
 
@@ -128,7 +128,7 @@ const SignupComponent = () => {
               </label>
               <input
                 className="border rounded w-full py-2 px-3 mb-2"
-                {...picture}
+                {...profile_piture}
               />
             </div>
 

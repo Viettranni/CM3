@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const AddJobPage = ({ addJobSubmit }) => {
+const AddJobPage = ({ addJobSubmit }) => {  
   const [title, setTitle] = useState('');
   const [type, setType] = useState('Full-Time');
-  const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
-  const [salary, setSalary] = useState('Under $50K');
+  const [salary, setSalary] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [companyDescription, setCompanyDescription] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [contactPhone, setContactPhone] = useState('');
+  const [location, setLocation] = useState('');
   const [postedDate, setPostedDate] = useState('');
   const [status, setStatus] = useState('closed');
 
@@ -27,22 +27,19 @@ const AddJobPage = ({ addJobSubmit }) => {
     const newJob = {
       title,
       type,
-      location,
       description,
-      salary,
       company: {
         name: companyName,
-        description: companyDescription,
         contactEmail,
         contactPhone,
       },
+      location,
+      salary,
       postedDate,
       status
     };
 
     addJobSubmit(newJob);
-
-    toast.success('Job Added Successfully');
 
     return navigate('/jobs');
   };
@@ -124,17 +121,14 @@ const AddJobPage = ({ addJobSubmit }) => {
                 value={salary}
                 onChange={(e) => setSalary(e.target.value)}
               >
-                <option value='Under $50K'>Under $50K</option>
-                <option value='$50K - 60K'>$50K - $60K</option>
-                <option value='$60K - 70K'>$60K - $70K</option>
-                <option value='$70K - 80K'>$70K - $80K</option>
-                <option value='$80K - 90K'>$80K - $90K</option>
-                <option value='$90K - 100K'>$90K - $100K</option>
-                <option value='$100K - 125K'>$100K - $125K</option>
-                <option value='$125K - 150K'>$125K - $150K</option>
-                <option value='$150K - 175K'>$150K - $175K</option>
-                <option value='$175K - 200K'>$175K - $200K</option>
-                <option value='Over $200K'>Over $200K</option>
+                <option value="" disabled selected>
+                  Select salary level
+                </option>
+                <option value={parseInt('50000')}>Under $50K</option>
+                <option value={parseInt('60000')}>$50K - $60K</option>
+                <option value={parseInt('70000')}>$60K - $70K</option>
+                <option value={parseInt('80000')}>$70K - $80K</option>
+                <option value={parseInt('90000')}>$80K - $90K</option>
               </select>
             </div>
 
@@ -228,21 +222,37 @@ const AddJobPage = ({ addJobSubmit }) => {
               />
             </div>
 
+            <div className="mb-4">
+              <label htmlFor="postedDate" className="block text-gray-700 font-bold mb-2">
+                Posted Date
+              </label>
+              <input
+                type="date"
+                id="postedDate"
+                name="postedDate"
+                className="border rounded w-full py-2 px-3"
+                required
+                value={postedDate}
+                onChange={(e) => setPostedDate(e.target.value)}
+              />
+            </div>
+
             <div>
               <label htmlFor="membership" className="block text-gray-700 font-bold mb-2">
                 Job Status:
               </label>
               <div className="flex items-center">
-                <input
-                  id="membership"
-                  type="checkbox"
-                  className="mr-2"
-                  checked={status === 'closed'}
-                  onChange={handleStatusChange}
-                />
-                <span>Job position closed</span>
+              <select
+                id="status"
+                name="status"
+                className="border rounded w-full py-2 px-3"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="open">Open</option>
+                <option value="closed">Closed</option>
+              </select>
               </div>
-              <p className="mt-2">Current Status: {status}</p>
             </div>
 
             <br />
