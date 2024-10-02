@@ -12,7 +12,7 @@ const SignupComponent = () => {
   const gender = useField("gender", "gender");
   const date_of_birth = useField("date", "date_of_birth");
   // membership made with useState
-  const adress = useField('text', 'adress')
+  const address = useField('text', 'address')
   const profile_piture = useField('text', 'picture')
   
 
@@ -24,12 +24,14 @@ const SignupComponent = () => {
     event.preventDefault();
     handleSignup(
       name.value,
-      emailField.value,
+      username.value,
       password.value,
       phone_number.value,
       gender.value,
       date_of_birth.value,
-      membershipStatus
+      membershipStatus,
+      address.value,
+      profile_piture.value
     );
   };
 
@@ -41,10 +43,7 @@ const SignupComponent = () => {
             <h2 className="text-3xl text-center font-semibold mb-6">Sign up</h2>
 
             <div className="mb-4">
-              <label
-                htmlFor="type"
-                className="block text-gray-700 font-bold mb-2"
-              >
+              <label className="block text-gray-700 font-bold mb-2">
                 Name:
               </label>
               <input
@@ -54,10 +53,7 @@ const SignupComponent = () => {
             </div>
 
             <div className="mb-4">
-              <label
-                htmlFor="type"
-                className="block text-gray-700 font-bold mb-2"
-              >
+              <label className="block text-gray-700 font-bold mb-2">
                 Username:
               </label>
               <input
@@ -67,24 +63,17 @@ const SignupComponent = () => {
             </div>
 
             <div className="mb-4">
-              <label
-                htmlFor="description"
-                className="block text-gray-700 font-bold mb-2"
-              >
+              <label className="block text-gray-700 font-bold mb-2">
                 Password:
               </label>
               <input
-                type="password"
                 className="border rounded w-full py-2 px-3"
                 {...password}
               />
             </div>
 
             <div className="mb-4">
-              <label
-                htmlFor="type"
-                className="block text-gray-700 font-bold mb-2"
-              >
+              <label className="block text-gray-700 font-bold mb-2">
                 Phone:
               </label>
               <input
@@ -96,7 +85,7 @@ const SignupComponent = () => {
 
             <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2">Job type:</label>
-              <select {...gender} className="border rounded w-full py-2 px-3 mb-2" {...type}>
+              <select {...gender} className="border rounded w-full py-2 px-3 mb-2">
                 <option value="" disabled selected>
                   Select job type
                 </option>
@@ -108,16 +97,11 @@ const SignupComponent = () => {
             </div>
 
             <div className="mb-4">
-              <label
-                htmlFor="company"
-                className="block text-gray-700 font-bold mb-2"
-              >
+              <label className="block text-gray-700 font-bold mb-2">
                 Date of Birth:
               </label>
-              {/* Updated to type="date" for date selection */}
               <input
-                type="date"
-                className="border rounded w-full py-2 px-3"
+                className="border rounded w-full py-2 px-3 mb-2"
                 {...date_of_birth}
               />
             </div>
@@ -132,6 +116,19 @@ const SignupComponent = () => {
               <input
                 className="border rounded w-full py-2 px-3 mb-2"
                 {...adress}
+              />
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="type"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Not a picture but a string:
+              </label>
+              <input
+                className="border rounded w-full py-2 px-3 mb-2"
+                {...picture}
               />
             </div>
 

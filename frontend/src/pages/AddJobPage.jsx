@@ -12,8 +12,14 @@ const AddJobPage = ({ addJobSubmit }) => {
   const [companyDescription, setCompanyDescription] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [contactPhone, setContactPhone] = useState('');
+  const [postedDate, setPostedDate] = useState('');
+  const [status, setStatus] = useState('closed');
 
   const navigate = useNavigate();
+
+  const handleStatusChange = (e) => {
+    onStatusChange(e.target.checked ? 'open' : 'closed');
+  }
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -30,6 +36,8 @@ const AddJobPage = ({ addJobSubmit }) => {
         contactEmail,
         contactPhone,
       },
+      postedDate,
+      status
     };
 
     addJobSubmit(newJob);
@@ -220,6 +228,24 @@ const AddJobPage = ({ addJobSubmit }) => {
               />
             </div>
 
+            <div>
+              <label htmlFor="membership" className="block text-gray-700 font-bold mb-2">
+                Job Status:
+              </label>
+              <div className="flex items-center">
+                <input
+                  id="membership"
+                  type="checkbox"
+                  className="mr-2"
+                  checked={status === 'closed'}
+                  onChange={handleStatusChange}
+                />
+                <span>Job position closed</span>
+              </div>
+              <p className="mt-2">Current Status: {status}</p>
+            </div>
+
+            <br />
             <div>
               <button
                 className='bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline'

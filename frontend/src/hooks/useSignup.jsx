@@ -7,12 +7,14 @@ const useSignup = () => {
   const { login } = useAuth();
   const handleSignup = async (
     name,
-    email,
+    username,
     password,
     phone_number,
     gender,
     date_of_birth,
-    membership_status
+    membership_status,
+    address,
+    profile_picture
   ) => {
     try {
       const response = await fetch("/api/users/signup", {
@@ -22,12 +24,14 @@ const useSignup = () => {
         },
         body: JSON.stringify({
           name,
-          email,
+          username,
           password,
           phone_number,
           gender,
           date_of_birth,
           membership_status,
+          address,
+          profile_picture
         }),
       });
 

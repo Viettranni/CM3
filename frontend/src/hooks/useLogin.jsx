@@ -5,12 +5,12 @@ import { useAuth } from '../context/AuthContext';
 
 const useLogin = () => {
   // const location = useLocation();
-  const emailField = useField("email", "email");
+  const usernameField = useField("username", "username");
   const passwordField = useField("password", "password");
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (username, password) => {
 
     try {
       const response = await fetch("/api/users/login", {
@@ -19,11 +19,11 @@ const useLogin = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
+          username,
           password,
         }),
       });
-      console.log("Values", email, password);
+      console.log("Values", username, password);
 
       if (response.ok) {
         const user = await response.json();
@@ -43,7 +43,7 @@ const useLogin = () => {
     }
   };
 
-  return { emailField, passwordField, handleLogin };
+  return { usernameField, passwordField, handleLogin };
 };
 
 export default useLogin;

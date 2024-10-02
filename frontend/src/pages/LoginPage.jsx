@@ -3,13 +3,13 @@ import useLogin from "../hooks/useLogin";
 
 const LoginPage = () => {
   const { handleLogin } = useLogin();
-  const emailField = useField("email", "email"); // Pass id as second argument
+  const usernameField = useField("username", "username"); // Pass id as second argument
   const passwordField = useField("password", "password");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Call handleLogin with the email and password values
-    handleLogin(emailField.value, passwordField.value);
+    // Call handleLogin with the username and password values
+    handleLogin(usernameField.value, passwordField.value);
   };
 
   return (
@@ -21,18 +21,18 @@ const LoginPage = () => {
 
             <div className="mb-4">
               <label
-                htmlFor={emailField.id} // Using the id from the hook
+                htmlFor={usernameField.id} // Using the id from the hook
                 className="block text-gray-700 font-bold mb-2"
               >
-                Email
+                Username
               </label>
               <input
                 className="border rounded w-full py-2 px-3"
-                id={emailField.id}
-                type={emailField.type}
-                value={emailField.value}
-                onChange={emailField.onChange}
-                // {...emailField} // Spreading the props
+                id={usernameField.id}
+                type={usernameField.type}
+                value={usernameField.value}
+                onChange={usernameField.onChange}
+                // {...usernameField} // Spreading the props
               />
             </div>
 
