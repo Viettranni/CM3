@@ -10,8 +10,5 @@ router.post("/login", loginUser);
 // signup route
 router.post("/signup", signupUser);
 
-router.use(requireAuth);
-
-router.get("/me", getAllUsers);
   
 module.exports = router;

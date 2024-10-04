@@ -38,7 +38,6 @@ const EditJobPage = ({ updateJobSubmit }) => {
       salary: salaryNumber,
       company: {
         name: companyName.value,
-        description: companyDescription.value,
         contactEmail: contactEmail.value,
         contactPhone: contactPhone.value,
       },

@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 // Generate JWT
 const generateToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, {
-    expiresIn: "3d",
+    expiresIn: "30min",
   });
 };
 
@@ -115,20 +115,9 @@ const loginUser = async (req, res) => {
   }
 };
 
-// @desc    Get user data
-// @route   GET /api/users/me
-// @access  Private
-const getMe = async (req, res) => {
-  try {
-    res.status(200).json(req.user);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
 module.exports = {
   signupUser,
   loginUser,
-  getMe,
   getAllUsers
 };
