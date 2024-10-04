@@ -86,7 +86,8 @@ const generateToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, {
     expiresIn: "30m",
   });
-};```
+};
+```
 
 ###
 
@@ -95,8 +96,10 @@ During our backend code review, we carefully evaluated each part of the code for
 
 Previously, the expiration time was set to "3d". For better security and user session management, we reduced this duration to "30 minutes". Along with this, we also implemented logic that would automatically log out the user when the token expires, providing a more secure experience. When the token expires, the user receives a toast notification prompting them to log in again. This change ensures shorter-lived tokens and reduces security risks associated with long-lived access tokens.
 
-For this we added new hook "useAutoLogout.jsx" which was then imported straight to ProtectedRoute.jsx
+For this we added new hook `useAutoLogout.jsx` which was then imported straight to `ProtectedRoute.jsx`
 
+
+```js
 useAutoLogout.jsx small code block:
 
   useEffect(() => {
@@ -114,3 +117,4 @@ import { useAutoLogout } from '../hooks/useAutoLogout';
 export function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth();
   useAutoLogout();
+  ```
