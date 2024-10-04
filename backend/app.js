@@ -4,6 +4,7 @@ const app = express();
 const morgan = require("morgan");
 const jobRouter = require("./routes/jobRouter");
 const userRouter = require("./routes/userRouter");
+const cors = require("cors");
 
 const {
   unknownEndpoint,
