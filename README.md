@@ -1,14 +1,14 @@
 # Coding Marathon 3
 
-- **Group #:** [Your group number]
+- **Group #:** 1
 - **Link to the backend repositories:**
-  - [Backend repo for API V1]
-  - [Backend repo for API V2]
+  - We've decided with the teacher to proceed directly with the backend that includes authentication, skipping the version without auth. This has been approved by the teacher.
+  - [\[Backend repo for API V2\]](https://github.com/Viettranni/CM3/tree/main/backend)
 - **Link to the frontend repository:**
-  - [Frontend repo]
+  - [\[Frontend repo\]](https://github.com/Viettranni/CM3/tree/frontend)
 - **URLs for the deployed APIs:**
-  - [URL for API V1]
-  - [URL for API V2]
+  - We've decided with the teacher to proceed directly with the backend that includes authentication, skipping the version without auth. This has been approved by the teacher.
+  - [\[URL for API V2\]](https://cm3-b.onrender.com/)
 
 ---
 
