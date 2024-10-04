@@ -42,7 +42,7 @@ We removed the `selected` attribute from the `<option>` tag and used the `value`
 ```
 
 ```js
-AddJobPage.jsx:
+AddJobPage.jsx and EditJobPage.jsx:
 
 Before:
 const AddJobPage = ({ addJobSubmit }) => {  
@@ -57,7 +57,9 @@ const AddJobPage = ({ addJobSubmit }) => {
   // More useField declarations...
 
 Explanation:
-We replaced the `useState` hooks with a custom `useField` hook to manage the form fields. This reduces boilerplate code and makes the form fields more reusable and easier to manage. Each field now maintains its own value and type, which makes the component more maintainable and improves readability.
+We replaced the useState hooks with a custom useField hook to manage the form fields. This reduces boilerplate code and makes the form fields more reusable and easier to manage. Each field now maintains its own value and type, which makes the component more maintainable and improves readability.
+
+We also applied this approach in EditJobPage, resulting in a more concise and consistent way to handle all form inputs across the component. This not only improves code readability but also ensures easier future modifications, as each form field is managed uniformly with the useField hook.
 
 Source:
 We used ChatGPT and Vercel AI (v0) to improve our code for readability, maintainability, reusability, and overall code quality.

@@ -8,13 +8,12 @@ const AddJobPage = ({ addJobSubmit }) => {
   const description = useField('textarea', 'description');
   const salary = useField('select', 'salary');
   const companyName = useField('text', 'company');
-  const companyDescription = useField('textarea', 'company_description');
   const contactEmail = useField('email', 'contact_email');
   const contactPhone = useField('tel', 'contact_phone');
   const location = useField('text', 'location');
   const postedDate = useField('date', 'postedDate');
-  const type = useField('select','Full-Time');
-  const status = useField('select', 'closed');
+  const type = useField('select','type');
+  const status = useField('select', 'status');
 
   const navigate = useNavigate();
 
@@ -138,19 +137,6 @@ const AddJobPage = ({ addJobSubmit }) => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor={companyDescription.id} className="block text-gray-700 font-bold mb-2">
-                Company Description
-              </label>
-              <textarea
-                {...companyDescription}
-                className="border rounded w-full py-2 px-3"
-                rows="4"
-                placeholder="Your business in a nutshell (or a really big nut)"
-                required
-              ></textarea>
-            </div>
-
-            <div className="mb-4">
               <label htmlFor={contactEmail.id} className="block text-gray-700 font-bold mb-2">
                 Contact Email
               </label>
@@ -193,6 +179,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                 {...status}
                 className="border rounded w-full py-2 px-3"
                 value={status.value}
+                required
               >
                 <option value="" disabled>
                   Is this position still relevant?

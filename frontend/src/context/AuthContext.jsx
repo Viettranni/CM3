@@ -8,20 +8,25 @@ export const AuthProvider = ({ children }) => {
   // const [redirectPath, setRedirectPath] = useState('/');
 
   useEffect(() => {
-    const storedAuth = localStorage.getItem('isAuthenticated');
+    const storedAuth = sessionStorage.getItem('isAuthenticated');
     if (storedAuth) {
       setIsAuthenticated(JSON.parse(storedAuth));
     }
   }, []);
 
-  const login = () => {
-    setIsAuthenticated(true);
-    localStorage.setItem('isAuthenticated', 'true');
+
+  const login = (user) => {
+    setIsAuthenticated(true); 
+    // sessionStorage.setItem("user", JSON.stringify(user));
+    sessionStorage.setItem("user", JSON.stringify(user));
+    console.log("User logged successfully!");
+    sessionStorage.setItem('isAuthenticated', 'true');
   };
 
   const logout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('isAuthenticated');
+    sessionStorage.removeItem('isAuthenticated');
+    sessionStorage.removeItem('user');
   };
 
   // const setRedirectLocation = (path) => {

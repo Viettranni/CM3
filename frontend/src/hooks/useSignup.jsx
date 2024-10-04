@@ -37,9 +37,7 @@ const useSignup = () => {
 
       if (response.ok) {
         const user = await response.json();
-        sessionStorage.setItem("user", JSON.stringify(user));
-        console.log("User signed up successfully!");
-        login();
+        login(user);
         navigate("/");
       } else {
         console.error("Signup failed");

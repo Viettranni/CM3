@@ -77,9 +77,9 @@ const signupUser = async (req, res) => {
 
 
     if (user) {
-      console.log(user._id);
-     const token = generateToken(user._id);
-     console.log("this should be the token", token);
+      // console.log(user._id);
+      const token = generateToken(user._id);
+      console.log("this should be the token", token);
       res.status(201).json({ username, token });
     } else {
       res.status(400);

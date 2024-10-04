@@ -95,6 +95,8 @@ const AppContent = () => {
       return false;
     }
 
+    console.log('job:', job)
+
     const res = await fetch(`/api/jobs/${job.id}`, {
       method: "PUT",
       headers: {

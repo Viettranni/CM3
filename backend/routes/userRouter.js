@@ -1,3 +1,4 @@
+const requireAuth = require("../middleware/requireAuth");
 const express = require("express");
 const router = express.Router();
 
@@ -9,6 +10,8 @@ router.post("/login", loginUser);
 // signup route
 router.post("/signup", signupUser);
 
-router.get("/", getAllUsers);
+router.use(requireAuth);
+
+router.get("/me", getAllUsers);
   
 module.exports = router;

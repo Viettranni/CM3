@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-const useField = (type, id) => {
-  const [value, setValue] = useState("");
+const useField = (type, id, initialValue = "") => {
+  const [value, setValue] = useState(initialValue);
 
   const onChange = (event) => setValue(event.target.value);
 
